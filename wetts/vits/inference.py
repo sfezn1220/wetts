@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import logging
 import os
 import sys
 import time
@@ -76,8 +77,32 @@ def main():
     net_g = net_g.to(device)
 
     net_g.eval()
-    utils.load_checkpoint(args.checkpoint, net_g, None)
 
+    # load checkpoints
+    checkpoint = args.checkpoint
+    if "last" in checkpoint:
+        last_generator = utils.latest_checkpoint_path(os.path.dirname(checkpoint), "G_*.pth")
+        utils.load_checkpoint(last_generator, net_g, None)
+        logging.info(f"Load last checkpoint: {os.path.basename(last_generator)}")
+        outdir = os.path.join(
+            os.path.dirname(args.outdir),
+            "test_" + last_generator.split("_")[-1].replace(".pth", "") + "_epochs",
+        )
+        logging.info(f"Save test audios: {outdir}")
+    else:
+        utils.load_checkpoint(checkpoint, net_g, None)
+        logging.info(f"Load checkpoint: {os.path.basename(checkpoint)}")
+        outdir = args.outdir
+        logging.info(f"Save test audios: {outdir}")
+
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+
+    # 统计一共多少条测试数据
+    with open(args.test_file) as fin:
+        total_cnt = len(fin.readlines())
+
+    cnt = 1
     with open(args.test_file) as fin:
         for line in fin:
             arr = line.strip().split("|")
@@ -92,7 +117,11 @@ def main():
             if hps.data.add_blank:
                 seq = commons.intersperse(seq, 0)
             seq = torch.LongTensor(seq)
-            print(audio_path)
+
+            print()
+            print(f"test audio: {cnt} / {total_cnt}:")
+            print(os.path.basename(audio_path))
+
             with torch.no_grad():
                 x = seq.to(device).unsqueeze(0)
                 x_length = torch.LongTensor([seq.size(0)]).to(device)
@@ -106,13 +135,15 @@ def main():
                     noise_scale_w=0.8,
                     length_scale=1)[0][0, 0].data.cpu().float().numpy()
                 audio *= 32767 / max(0.01, np.max(np.abs(audio))) * 0.6
-                print('RTF {}'.format(
-                    (time.time() - st) /
-                    (audio.shape[0] / hps.data.sampling_rate)))
+                # print('RTF {}'.format(
+                #     (time.time() - st) /
+                #     (audio.shape[0] / hps.data.sampling_rate)))
                 sys.stdout.flush()
                 audio = np.clip(audio, -32767.0, 32767.0)
-                wavfile.write(args.outdir + "/" + os.path.basename(audio_path),
+                wavfile.write(outdir + "/" + os.path.basename(audio_path),
                               hps.data.sampling_rate, audio.astype(np.int16))
+
+            cnt += 1
 
 
 if __name__ == '__main__':

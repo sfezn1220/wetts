@@ -15,7 +15,7 @@ ori_label_file="G:\Yuanshen\3.jiaba_cut_22K_cersion-0.35_label.txt"  # 原始数
 baker_phones="I:\models_Yuanshen\exp\baker_vits_v1_exp\phones.txt"  # baker 音素列表
 
 # 测试参数
-test_epochs="1"
+test_epochs="last"
 
 # 一般不需要改的参数
 config="configs/${train_version}.json"
@@ -72,6 +72,12 @@ if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
   echo "starting training... ${vits}/train.py"
   export MASTER_ADDR=localhost
   export MASTER_PORT=10086
+
+  if [ -e "${exp_dir}/labels_bak" ]; then
+    mkdir "${exp_dir}/labels_bak"
+  fi
+  cp -r ${data} "${exp_dir}/labels_bak"
+
   python ${vits}/train.py \
     -c ${config} \
     -m ${exp_dir} \
@@ -85,7 +91,6 @@ fi
 
 # stage 4: test
 if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
-  [ ! -d ${test_output} ] && mkdir ${test_output}
   python ${vits}/inference.py  \
     --checkpoint     ${test_checkpoint} \
     --cfg            ${config} \
