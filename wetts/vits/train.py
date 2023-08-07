@@ -138,7 +138,7 @@ def run(rank, n_gpus, hps):
         _, _, _, epoch_str = utils.load_checkpoint(
             last_discriminator,
             net_d,
-            None)
+            optim_d)
         global_step = (epoch_str - 1) * len(train_loader)
         logging.info(f"load checkpoint: {last_discriminator}")
     elif os.path.exists(hps.pretrain_discriminator):
