@@ -38,6 +38,12 @@ test_sets = [
     "Yanfei-0000_1uib59lusm39lajs3huhxoyb4hc9l30_002854",
     "Yelan-0000_kthng1wgpyyj8he68tx8cp87791wv5l_002970",
     "Youla-0000_qdukmlynp0obxk2qs7h7yhzz5v86n6u_003085",
+
+    "aishell3_SSB1956-SSB19560478_063258",
+    "aishell3_SSB1341-SSB13410113_053277",
+    "aishell3_SSB0614-SSB06140291_033847",
+    "aishell3_SSB0565-SSB05650217_028185",
+    "aishell3_SSB0354-SSB03540052_017581",
 ]
 
 if len(sys.argv) != 7:
