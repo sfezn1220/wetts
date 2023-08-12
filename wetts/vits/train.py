@@ -61,7 +61,9 @@ def run(rank, n_gpus, hps):
 
     length = train_dataset.lengths
     length.sort()
-    print(f"train_dataset.length (frame) = {length}")
+    # print(f"train_dataset.length (frame) = {length}")  # 不再展示所有数据
+    print(f"train_dataset.length (frame) min = {min(length)}")
+    print(f"train_dataset.length (frame) max = {max(length)}")
     print(f"train_dataset.total_length (minutes) = {round(sum(length) * 11.6 / 1000 / 60, 1)}")
     print(f"train_dataset.total_length (hours) = {round(sum(length) * 11.6 / 1000 / 3600, 1)}")
 

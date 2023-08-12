@@ -1,3 +1,4 @@
+import logging
 import os
 import random
 
@@ -50,7 +51,9 @@ class TextAudioSpeakerLoader(torch.utils.data.Dataset):
             with open(speaker_file) as fin:
                 for line in fin:
                     arr = line.strip().split()
-                    self.speaker_dict[arr[0]] = int(arr[1])
+                    if len(arr) == 2:
+                        self.speaker_dict[arr[0]] = int(arr[1])
+            logging.info(f"speaker_dict[{len(self.speaker_dict)}] = {self.speaker_dict}")
 
         random.seed(1234)
         random.shuffle(self.audiopaths_sid_text)

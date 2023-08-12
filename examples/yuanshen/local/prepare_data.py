@@ -41,9 +41,9 @@ test_sets = [
 
     "aishell3_SSB1956-SSB19560478_063258",
     "aishell3_SSB1341-SSB13410113_053277",
-    "aishell3_SSB0614-SSB06140291_033847",
-    "aishell3_SSB0565-SSB05650217_028185",
-    "aishell3_SSB0354-SSB03540052_017581",
+    "aishell3_SSB1956-SSB19560475_063255",
+    "aishell3_SSB1575-SSB15750398_055947",
+    "aishell3_SSB1448-SSB14480349_054146",
 ]
 
 if len(sys.argv) != 7:

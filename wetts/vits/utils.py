@@ -260,10 +260,12 @@ def get_hparams(init=True):
     if args.speaker_table is not None:
         config['data']['speaker_table'] = args.speaker_table
         # 0 is kept for unknown speaker
-        config['data']['n_speakers'] = len(
-            open(args.speaker_table).readlines()) + 1
+
+        # 不再考虑训练数据的音色数量，因为会预留一些 spk-id 位置；
+        # config['data']['n_speakers'] = len(open(args.speaker_table).readlines()) + 1
     else:
-        config['data']['n_speakers'] = 0
+        # config['data']['n_speakers'] = 0
+        pass
 
     hparams = HParams(**config)
     hparams.model_dir = model_dir

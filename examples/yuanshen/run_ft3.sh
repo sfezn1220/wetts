@@ -3,15 +3,15 @@
 
 export CUDA_VISIBLE_DEVICES="0"
 
-stage=4
-stop_stage=4
+stage=3
+stop_stage=3
 
 # 训练参数
-train_version="ft2"
-pretrain_generator="I:\models_Yuanshen\exp\ft2\-1.pth"  # no pretrain
-pretrain_discriminator="I:\models_Yuanshen\exp\ft2\-1.pth"
-data="./data/yuanshen_version-0.35+aishell3"  # data.list 存储路径
-ori_label_file="G:\Yuanshen\3.jiaba_cut_22K_cersion-0.35_label+aishell3.txt"  # 原始数据
+train_version="ft3"
+pretrain_generator="I:\models_Yuanshen\exp\\${train_version}\ft2_final_G_25.pth"  # '-1' means no pretrain
+pretrain_discriminator="I:\models_Yuanshen\exp\\${train_version}\ft2_final_D_25.pth"
+data="./data/yuanshen_version-0.35+aishell3-version-1.1"  # data.list 存储路径
+ori_label_file="G:\Yuanshen\3.jiaba_cut_22K_version-0.35_label+aishell3-version-1.1.txt"  # 原始数据
 baker_phones="I:\models_Yuanshen\exp\baker_vits_v1_exp\phones.txt"  # baker 音素列表
 
 # 测试参数
@@ -63,8 +63,9 @@ if [ ${stage} -le 2 ] && [ ${stop_stage} -ge 2 ]; then
       > "${data}/phones.txt"
     echo "Use self phones_dict."
   } fi
-  cat "${data}/all.txt" | awk -F '|' '{print $2}' | \
-    sort | uniq | awk '{print $0, NR-1}' > "${data}/speaker.txt"
+  # 后续不再自动生成 spk-map，改为手动修改；
+  # cat "${data}/all.txt" | awk -F '|' '{print $2}' | \
+  #   sort | uniq | awk '{print $0, NR-1}' > "${data}/speaker.txt"
 fi
 
 # stage 3: train
