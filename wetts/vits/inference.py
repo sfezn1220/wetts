@@ -72,7 +72,7 @@ def main():
         len(phone_dict) + 1,
         hps.data.filter_length // 2 + 1,
         hps.train.segment_size // hps.data.hop_length,
-        n_speakers=len(speaker_dict) + 1,  # 0 is kept for unknown speaker
+        n_speakers=hps.data.n_speakers,
         **hps.model)
     net_g = net_g.to(device)
 

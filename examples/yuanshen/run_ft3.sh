@@ -16,6 +16,7 @@ baker_phones="I:\models_Yuanshen\exp\baker_vits_v1_exp\phones.txt"  # baker 音�
 
 # 测试参数
 test_epochs="last"
+test_gpu=-1
 
 # 一般不需要改的参数
 config="configs/${train_version}.json"
@@ -74,9 +75,7 @@ if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
   export MASTER_ADDR=localhost
   export MASTER_PORT=10086
 
-  if [ -e "${exp_dir}/labels_bak" ]; then
-    mkdir "${exp_dir}/labels_bak"
-  fi
+  mkdir -p "${exp_dir}/labels_bak"
   cp -r ${data} "${exp_dir}/labels_bak"
 
   python ${vits}/train.py \
@@ -93,6 +92,7 @@ fi
 # stage 4: test
 if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
   python ${vits}/inference.py  \
+    --gpu            ${test_gpu} \
     --checkpoint     ${test_checkpoint} \
     --cfg            ${config} \
     --outdir         ${test_output} \
