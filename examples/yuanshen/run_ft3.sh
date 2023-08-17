@@ -16,7 +16,7 @@ baker_phones="I:\models_Yuanshen\exp\baker_vits_v1_exp\phones.txt"  # baker 音�
 
 # 测试参数
 test_epochs="last"
-test_gpu=-1
+test_gpu="0"
 
 # 一般不需要改的参数
 config="configs/${train_version}.json"
