@@ -39,6 +39,15 @@ test_sets = [
     "Yelan-0000_kthng1wgpyyj8he68tx8cp87791wv5l_002970",
     "Youla-0000_qdukmlynp0obxk2qs7h7yhzz5v86n6u_003085",
 
+    "Alexstrasza-IntroResponseLife00_000068",
+    "Ana-Ultimate1Used00_000404",
+    "Chromie-Kill01ALT1_000457",
+    "DVa-UILockin00_000641",
+    "Jaina-Taunt01_000799",
+    "LieKong-UILockin00_000982",
+    "LuNaLa-AIGoodJob02_000996",
+    "MaWei-Pissed03_001296",
+
     "aishell3_SSB1956-SSB19560478_063258",
     "aishell3_SSB1341-SSB13410113_053277",
     "aishell3_SSB1956-SSB19560475_063255",

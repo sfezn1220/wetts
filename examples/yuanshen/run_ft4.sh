@@ -3,15 +3,15 @@
 
 export CUDA_VISIBLE_DEVICES="0"
 
-stage=4
-stop_stage=4
+stage=3
+stop_stage=3
 
 # 训练参数
-train_version="ft3"
-pretrain_generator="I:\models_Yuanshen\exp\\${train_version}\ft2_final_G_25.pth"  # '-1' means no pretrain
-pretrain_discriminator="I:\models_Yuanshen\exp\\${train_version}\ft2_final_D_25.pth"
-data="./data/yuanshen_version-0.35+aishell3-version-1.1"  # data.list 存储路径
-ori_label_file="G:\Yuanshen\3.jiaba_cut_22K_version-0.35_label+aishell3-version-1.1.txt"  # 原始数据
+train_version="ft4"
+pretrain_generator="I:\models_Yuanshen\exp\\${train_version}\ft3_final_G_300.pth"  # '-1' means no pretrain
+pretrain_discriminator="I:\models_Yuanshen\exp\\${train_version}\ft3_final_D_300.pth"
+data="./data/yuanshen_version-0.35+aishell3-version-1.1+HoS-version-0.3"  # data.list 存储路径
+ori_label_file="G:\Yuanshen\3.jiaba_cut_22K_version-0.35_label+aishell3-version-1.1+HoS-version-0.3.txt"  # 原始数据
 baker_phones="I:\models_Yuanshen\exp\baker_vits_v1_exp\phones.txt"  # baker 音素列表
 
 # 测试参数
