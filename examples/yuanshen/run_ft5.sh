@@ -3,8 +3,8 @@
 
 export CUDA_VISIBLE_DEVICES="0"
 
-stage=3
-stop_stage=3
+stage=4
+stop_stage=4
 
 # 训练参数
 train_version="ft5"
